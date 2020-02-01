@@ -1,0 +1,39 @@
+{
+  "name": "node-font2base64",
+  "description": "Convert font to base64 url or src, and to inject src into style files",
+  "version": "0.5.0",
+  "author": "Junmin Ahn <junminahn@outlook.com>",
+  "license": "MIT",
+  "keywords": [
+    "base64",
+    "dataurl",
+    "font",
+    "fontface",
+    "encode",
+    "node"
+  ],
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/junminahn/node-font2base64.git"
+  },
+  "scripts": {
+    "test": "mocha --exit test.js"
+  },
+  "files": [
+    "LICENSE",
+    "HISTORY.md",
+    "index.js",
+    "helpers.js"
+  ],
+  "engines": {
+    "node": ">= 8.0.0"
+  },
+  "dependencies": {
+    "css": "^2.2.4"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  },
+  "peerDependencies": {}
+}
