@@ -2,7 +2,7 @@
   "name": "node-font2base64",
   "description": "Convert font to base64 url or src, and to inject src into style files",
   "version": "0.5.1",
-  "author": "Junmin Ahn <junminahn@outlook.com>",
+  "author": "Junmin Ahn",
   "license": "MIT",
   "keywords": [
     "base64",
