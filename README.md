@@ -1,5 +1,9 @@
 # node-font2base64
 
+[![NPM version](https://img.shields.io/npm/v/node-font2base64.svg)](https://www.npmjs.com/package/node-font2base64)
+[![Dependency Status](https://david-dm.org/junminahn/node-font2base64.svg)](https://david-dm.org/junminahn/node-font2base64)
+[![License](https://img.shields.io/npm/l/junminahn/node-font2base64.svg)](/LICENSE) 
+
 Convert font to base64 url or src, and to inject src into style files
 
 ## Installation
