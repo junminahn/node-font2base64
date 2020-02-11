@@ -65,10 +65,13 @@ const dataSrc = font2base64.encodeToDataSrcSync('fonts/myfont-regular.woff')
     * `resave`: {boolean}
         * resave modified style files
         * default to true
-* Returns: {Promise} containing {true | Error}
+* Returns: {Promise} containing {true | Error} | {Array{result} | Error}
 ```js
 const result = await font2base64.injectBase64('./fonts', './styles')
 // => true
+
+const result = await font2base64.injectBase64('./fonts', './styles', { resave: false })
+// => [{ modified: true, filepath: './styles/example.css', content: '...' }]
 ```
 
 ### .injectBase64Sync (fontpath, stylepath[, options])
@@ -88,10 +91,13 @@ const result = await font2base64.injectBase64('./fonts', './styles')
     * `resave`: {boolean}
         * resave modified style files
         * default to true
-* Returns: {true | Error}
+* Returns: {true | Error} | {Array{result} | Error}
 ```js
 const result = font2base64.injectBase64Sync('./fonts', './styles')
 // => true
+
+const result = font2base64.injectBase64Sync('./fonts', './styles', { resave: false })
+// => [{ modified: true, filepath: './styles/example.css', content: '...' }]
 ```
 
 ### [MIT Licensed](LICENSE)
