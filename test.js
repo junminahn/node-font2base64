@@ -99,3 +99,22 @@ describe('Replace font src with base64 data src', function() {
     assert.equal(result, expected);
   });
 });
+
+describe('Replace font src with base64 data src without resave', function() {
+  it(`should replace src`, function(done) {
+    const results = font2base64.injectBase64Sync('./fonts', './example/example.css', { resave: false });
+    const expected = fs.readFileSync('./example/example_2.css', 'utf8');
+
+    assert.equal(results[0].modified, true);
+    assert.equal(results[0].content, expected);
+    done();
+  });
+
+  it(`should replace src asynchronously`, async function() {
+    const results = await font2base64.injectBase64('./fonts', './example/example.css', { resave: false });
+    const expected = fs.readFileSync('./example/example_2.css', 'utf8');
+
+    assert.equal(results[0].modified, true);
+    assert.equal(results[0].content, expected);
+  });
+});

@@ -183,9 +183,10 @@ const _defaultValidator = (url, basename) => path.basename(url) === basename;
 const injectBase64 = async (
   fpath,
   cpath,
-  { validator = _defaultValidator, fontTypes = _fontTypes, cssTypes = _styleTypes } = {}
+  { validator = _defaultValidator, fontTypes = _fontTypes, cssTypes = _styleTypes, resave = true } = {}
 ) => {
   const dataUrlMap = {};
+  const results = [];
 
   try {
     await promiseMap(await readAllFilesAsync(fpath, fontTypes), async fp => {
@@ -199,24 +200,36 @@ const injectBase64 = async (
       const content = await readFileAsync(cp, 'utf8');
       const { ast, modified } = _updateCssAst(content, validator, dataUrlMap, keys);
 
+      const result = { modified, filepath: cp };
+
       if (modified) {
         const newContent = css.stringify(ast);
-        return writeFileAsync(cp, newContent, 'utf8');
+
+        if (resave) {
+          await writeFileAsync(cp, newContent, 'utf8');
+        }
+
+        result.content = newContent;
+      } else {
+        result.content = content;
       }
+
+      results.push(result);
     });
-  } catch (e) {
-    return e;
+  } catch (err) {
+    console.error(err);
   }
 
-  return true;
+  return resave ? true : results;
 };
 
 const injectBase64Sync = (
   fpath,
   cpath,
-  { validator = _defaultValidator, fontTypes = _fontTypes, cssTypes = _styleTypes } = {}
+  { validator = _defaultValidator, fontTypes = _fontTypes, cssTypes = _styleTypes, resave = true } = {}
 ) => {
   const dataUrlMap = {};
+  const results = [];
 
   try {
     eachArray(readAllFilesSync(fpath, fontTypes), fp => {
@@ -230,16 +243,27 @@ const injectBase64Sync = (
 
       const { ast, modified } = _updateCssAst(content, validator, dataUrlMap, keys);
 
+      const result = { modified, filepath: cp };
+
       if (modified) {
         const newContent = css.stringify(ast);
-        fs.writeFileSync(cp, newContent, 'utf8');
+
+        if (resave) {
+          fs.writeFileSync(cp, newContent, 'utf8');
+        }
+
+        result.content = newContent;
+      } else {
+        result.content = content;
       }
+
+      results.push(result);
     });
-  } catch (e) {
-    return e;
+  } catch (err) {
+    console.error(err);
   }
 
-  return true;
+  return resave ? true : results;
 };
 
 module.exports = exports = {

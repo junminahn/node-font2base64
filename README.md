@@ -1,7 +1,7 @@
 # node-font2base64
 
 [![NPM version](https://img.shields.io/npm/v/node-font2base64.svg)](https://www.npmjs.com/package/node-font2base64)
-[![Dependency Status](https://david-dm.org/junminahn/node-font2base64.svg)](https://david-dm.org/junminahn/node-font2base64)
+[![Dependency Status](https://david-dm.org/junminahn/node-font2base64/status.svg)](https://david-dm.org/junminahn/node-font2base64)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](/LICENSE)
 
 Convert font to base64 url or src, and to inject src into style files
@@ -62,6 +62,9 @@ const dataSrc = font2base64.encodeToDataSrcSync('fonts/myfont-regular.woff')
     * `cssTypes`: {Array{string}}
         * allowed style ext names
         * default to ['.css', '.scss', '.less']
+    * `resave`: {boolean}
+        * resave modified style files
+        * default to true
 * Returns: {Promise} containing {true | Error}
 ```js
 const result = await font2base64.injectBase64('./fonts', './styles')
@@ -82,6 +85,9 @@ const result = await font2base64.injectBase64('./fonts', './styles')
     * `cssTypes`: {Array{string}}
         * allowed style ext names
         * default to ['.css', '.scss', '.less']
+    * `resave`: {boolean}
+        * resave modified style files
+        * default to true
 * Returns: {true | Error}
 ```js
 const result = font2base64.injectBase64Sync('./fonts', './styles')
