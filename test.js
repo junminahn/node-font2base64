@@ -100,6 +100,61 @@ describe('Replace font src with base64 data src', function() {
   });
 });
 
+describe('Replace font src in content with base64 data src', function() {
+  it(`should replace src`, function(done) {
+    const content = fs.readFileSync('./example/example.css', 'utf8');
+    const result = font2base64.injectBase64Sync.fromContent('./fonts', content, { root: './example' });
+    const expected = fs.readFileSync('./example/example_2.css', 'utf8');
+
+    assert.equal(result.content, expected);
+    done();
+  });
+
+  it(`should replace src asynchronously`, async function() {
+    const content = fs.readFileSync('./example/example.css', 'utf8');
+    const result = await font2base64.injectBase64.fromContent('./fonts', content, { root: './example' });
+    const expected = fs.readFileSync('./example/example_2.css', 'utf8');
+
+    assert.equal(result.content, expected);
+  });
+});
+
+describe('Replace font src in buffer with base64 data src', function() {
+  it(`should replace src`, function(done) {
+    const buffer = fs.readFileSync('./example/example.css');
+    const result = font2base64.injectBase64Sync.fromBuffer('./fonts', buffer, { root: './example' });
+    const expected = fs.readFileSync('./example/example_2.css', 'utf8');
+
+    assert.equal(result.content, expected);
+    done();
+  });
+
+  it(`should replace src asynchronously`, async function() {
+    const buffer = fs.readFileSync('./example/example.css');
+    const result = await font2base64.injectBase64.fromBuffer('./fonts', buffer, { root: './example' });
+    const expected = fs.readFileSync('./example/example_2.css', 'utf8');
+
+    assert.equal(result.content, expected);
+  });
+
+  it(`should replace src by comparing base names`, function(done) {
+    const buffer = fs.readFileSync('./example/example.css');
+    const result = font2base64.injectBase64Sync.fromBuffer('./fonts', buffer);
+    const expected = fs.readFileSync('./example/example_2.css', 'utf8');
+
+    assert.equal(result.content, expected);
+    done();
+  });
+
+  it(`should replace src by comparing base names asynchronously`, async function() {
+    const buffer = fs.readFileSync('./example/example.css');
+    const result = await font2base64.injectBase64.fromBuffer('./fonts', buffer);
+    const expected = fs.readFileSync('./example/example_2.css', 'utf8');
+
+    assert.equal(result.content, expected);
+  });
+});
+
 describe('Replace font src with base64 data src without resave', function() {
   it(`should replace src`, function(done) {
     const results = font2base64.injectBase64Sync('./fonts', './example/example.css', { resave: false });

@@ -53,7 +53,7 @@ const dataSrc = font2base64.encodeToDataSrcSync('fonts/myfont-regular.woff')
 * `fontpath`: {string} | {Array{string}}
 * `stylepath`: {string} | {Array{string}}
 * `options`: {Object}
-    * `validator`: {Function}: (font_url_in_style_file, font_basename) => boolean
+    * `validator`: {Function}: (abs|base_font_url, abs|base_font_path, original_font_url, original_font_path) => boolean
         * check if font url in a style file matches to font file's basename
         * default to comparing both paths' basenames
     * `fontTypes`: {Array{string}}
@@ -79,7 +79,7 @@ const result = await font2base64.injectBase64('./fonts', './styles', { resave: f
 * `fontpath`: {string} | {Array{string}}
 * `stylepath`: {string} | {Array{string}}
 * `options`: {Object}
-    * `validator`: {Function}: (font_url_in_style_file, font_basename) => boolean
+    * `validator`: {Function}: (abs|base_font_url, abs|base_font_path, original_font_url, original_font_path) => boolean
         * check if font url in a style file matches to font file's basename
         * default to comparing both paths' basenames
     * `fontTypes`: {Array{string}}
@@ -98,6 +98,86 @@ const result = font2base64.injectBase64Sync('./fonts', './styles')
 
 const result = font2base64.injectBase64Sync('./fonts', './styles', { resave: false })
 // => [{ modified: true, filepath: './styles/example.css', content: '...' }]
+```
+
+### .injectBase64.fromContent (fontpath, content[, options])
+* Replace font url(s) in style content with font-media base64 data src asynchronously
+* `fontpath`: {string} | {Array{string}}
+* `content`: {string}
+* `options`: {Object}
+    * `validator`: {Function}: (abs|base_font_url, abs|base_font_path, original_font_url, original_font_path) => boolean
+        * check if font url in a style file matches to font file's basename
+        * default to comparing both paths' basenames
+    * `fontTypes`: {Array{string}}
+        * allowed font ext names
+        * default to ['.svg', '.ttf', '.otf', '.eot', '.sfnt', '.woff2', '.woff']
+    * `root`: {string}
+        * directory path which the content originated from
+        * use basenames to compare font urls in style files if omitted
+* Returns: {Promise} containing {result | Error}
+```js
+const result = await font2base64.injectBase64.fromContent('./fonts', '...@font-face {...')
+// => [{ modified: true, content: '...' }]
+```
+
+### .injectBase64Sync.fromContent (fontpath, content[, options])
+* Replace font url(s) in style content with font-media base64 data src synchronously
+* `fontpath`: {string} | {Array{string}}
+* `content`: {string}
+* `options`: {Object}
+    * `validator`: {Function}: (abs|base_font_url, abs|base_font_path, original_font_url, original_font_path) => boolean
+        * check if font url in a style file matches to font file's basename
+        * default to comparing both paths' basenames
+    * `fontTypes`: {Array{string}}
+        * allowed font ext names
+        * default to ['.svg', '.ttf', '.otf', '.eot', '.sfnt', '.woff2', '.woff']
+    * `root`: {string}
+        * directory path which the content originated from
+        * use basenames to compare font urls in style files if omitted
+* Returns: {result | Error}
+```js
+const result = injectBase64Sync.injectBase64.fromContent('./fonts', '...@font-face {...')
+// => [{ modified: true, content: '...' }]
+```
+
+### .injectBase64.fromBuffer (fontpath, buffer[, options])
+* Replace font url(s) in style buffer with font-media base64 data src asynchronously
+* `fontpath`: {string} | {Array{string}}
+* `buffer`: {Buffer}
+* `options`: {Object}
+    * `validator`: {Function}: (abs|base_font_url, abs|base_font_path, original_font_url, original_font_path) => boolean
+        * check if font url in a style file matches to font file's basename
+        * default to comparing both paths' basenames
+    * `fontTypes`: {Array{string}}
+        * allowed font ext names
+        * default to ['.svg', '.ttf', '.otf', '.eot', '.sfnt', '.woff2', '.woff']
+    * `root`: {string}
+        * directory path which the buffer originated from
+        * use basenames to compare font urls in style files if omitted
+* Returns: {Promise} containing {result | Error}
+```js
+const result = await font2base64.injectBase64.fromBuffer('./fonts', Buffer 54 65 73 74...)
+// => [{ modified: true, content: '...' }]
+```
+
+### .injectBase64Sync.fromBuffer (fontpath, content[, options])
+* Replace font url(s) in style buffer with font-media base64 data src synchronously
+* `fontpath`: {string} | {Array{string}}
+* `buffer`: {Buffer}
+* `options`: {Object}
+    * `validator`: {Function}: (abs|base_font_url, abs|base_font_path, original_font_url, original_font_path) => boolean
+        * check if font url in a style file matches to font file's basename
+        * default to comparing both paths' basenames
+    * `fontTypes`: {Array{string}}
+        * allowed font ext names
+        * default to ['.svg', '.ttf', '.otf', '.eot', '.sfnt', '.woff2', '.woff']
+    * `root`: {string}
+        * directory path which the buffer originated from
+        * use basenames to compare font urls in style files if omitted
+* Returns: {result | Error}
+```js
+const result = injectBase64Sync.injectBase64.fromBuffer('./fonts', Buffer 54 65 73 74...)
+// => [{ modified: true, content: '...' }]
 ```
 
 ### [MIT Licensed](LICENSE)
