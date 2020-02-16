@@ -65,6 +65,9 @@ const dataSrc = font2base64.encodeToDataSrcSync('fonts/myfont-regular.woff')
     * `resave`: {boolean}
         * resave modified style files
         * default to true
+    * `fullpathMatch`: {boolean}
+        * match full url / path to validate paths
+        * default to false
 * Returns: {Promise} containing {true | Error} | {Array{result} | Error}
 ```js
 const result = await font2base64.injectBase64('./fonts', './styles')
@@ -91,6 +94,9 @@ const result = await font2base64.injectBase64('./fonts', './styles', { resave: f
     * `resave`: {boolean}
         * resave modified style files
         * default to true
+    * `fullpathMatch`: {boolean}
+        * match full url / path to validate paths
+        * default to false
 * Returns: {true | Error} | {Array{result} | Error}
 ```js
 const result = font2base64.injectBase64Sync('./fonts', './styles')
@@ -111,6 +117,9 @@ const result = font2base64.injectBase64Sync('./fonts', './styles', { resave: fal
     * `fontTypes`: {Array{string}}
         * allowed font ext names
         * default to ['.svg', '.ttf', '.otf', '.eot', '.sfnt', '.woff2', '.woff']
+    * `fullpathMatch`: {boolean}
+        * match full url / path to validate paths
+        * default to false
     * `root`: {string}
         * directory path which the content originated from
         * use basenames to compare font urls in style files if omitted
@@ -131,6 +140,9 @@ const result = await font2base64.injectBase64.fromContent('./fonts', '...@font-f
     * `fontTypes`: {Array{string}}
         * allowed font ext names
         * default to ['.svg', '.ttf', '.otf', '.eot', '.sfnt', '.woff2', '.woff']
+    * `fullpathMatch`: {boolean}
+        * match full url / path to validate paths
+        * default to false
     * `root`: {string}
         * directory path which the content originated from
         * use basenames to compare font urls in style files if omitted
@@ -151,6 +163,9 @@ const result = injectBase64Sync.injectBase64.fromContent('./fonts', '...@font-fa
     * `fontTypes`: {Array{string}}
         * allowed font ext names
         * default to ['.svg', '.ttf', '.otf', '.eot', '.sfnt', '.woff2', '.woff']
+    * `fullpathMatch`: {boolean}
+        * match full url / path to validate paths
+        * default to false
     * `root`: {string}
         * directory path which the buffer originated from
         * use basenames to compare font urls in style files if omitted
@@ -171,6 +186,9 @@ const result = await font2base64.injectBase64.fromBuffer('./fonts', Buffer 54 65
     * `fontTypes`: {Array{string}}
         * allowed font ext names
         * default to ['.svg', '.ttf', '.otf', '.eot', '.sfnt', '.woff2', '.woff']
+    * `fullpathMatch`: {boolean}
+        * match full url / path to validate paths
+        * default to false
     * `root`: {string}
         * directory path which the buffer originated from
         * use basenames to compare font urls in style files if omitted

@@ -16,9 +16,14 @@
 0.7.0 / 2020-02-15
 ==================
 
-  * Identify font type by checking magic number of the buffer using "file-type"
+  * Identify font type by checking magic number of the buffer using `file-type`
   * Use absolute font paths to compare font urls in style files
-  * Add method "injectBase64.fromContent"
-  * Add method "injectBase64Sync.fromContent"
-  * Add method "injectBase64.fromBuffer"
-  * Add method "injectBase64Sync.fromBuffer"
+  * Add method `injectBase64.fromContent`
+  * Add method `injectBase64Sync.fromContent`
+  * Add method `injectBase64.fromBuffer`
+  * Add method `injectBase64Sync.fromBuffer`
+
+0.7.1 / 2020-02-16
+==================
+
+  * Add an option `fullpathMatch` for injectBase64* methods

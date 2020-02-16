@@ -103,7 +103,10 @@ describe('Replace font src with base64 data src', function() {
 describe('Replace font src in content with base64 data src', function() {
   it(`should replace src`, function(done) {
     const content = fs.readFileSync('./example/example.css', 'utf8');
-    const result = font2base64.injectBase64Sync.fromContent('./fonts', content, { root: './example' });
+    const result = font2base64.injectBase64Sync.fromContent('./fonts', content, {
+      root: './example',
+      fullpathMatch: true,
+    });
     const expected = fs.readFileSync('./example/example_2.css', 'utf8');
 
     assert.equal(result.content, expected);
@@ -112,7 +115,10 @@ describe('Replace font src in content with base64 data src', function() {
 
   it(`should replace src asynchronously`, async function() {
     const content = fs.readFileSync('./example/example.css', 'utf8');
-    const result = await font2base64.injectBase64.fromContent('./fonts', content, { root: './example' });
+    const result = await font2base64.injectBase64.fromContent('./fonts', content, {
+      root: './example',
+      fullpathMatch: false,
+    });
     const expected = fs.readFileSync('./example/example_2.css', 'utf8');
 
     assert.equal(result.content, expected);
@@ -122,7 +128,10 @@ describe('Replace font src in content with base64 data src', function() {
 describe('Replace font src in buffer with base64 data src', function() {
   it(`should replace src`, function(done) {
     const buffer = fs.readFileSync('./example/example.css');
-    const result = font2base64.injectBase64Sync.fromBuffer('./fonts', buffer, { root: './example' });
+    const result = font2base64.injectBase64Sync.fromBuffer('./fonts', buffer, {
+      root: './example',
+      fullpathMatch: false,
+    });
     const expected = fs.readFileSync('./example/example_2.css', 'utf8');
 
     assert.equal(result.content, expected);
@@ -131,7 +140,10 @@ describe('Replace font src in buffer with base64 data src', function() {
 
   it(`should replace src asynchronously`, async function() {
     const buffer = fs.readFileSync('./example/example.css');
-    const result = await font2base64.injectBase64.fromBuffer('./fonts', buffer, { root: './example' });
+    const result = await font2base64.injectBase64.fromBuffer('./fonts', buffer, {
+      root: './example',
+      fullpathMatch: true,
+    });
     const expected = fs.readFileSync('./example/example_2.css', 'utf8');
 
     assert.equal(result.content, expected);
