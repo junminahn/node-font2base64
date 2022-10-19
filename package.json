@@ -44,7 +44,7 @@
     "eslint-plugin-import": "^2.26.0",
     "fs-extra": "^10.1.0",
     "lodash": "^4.17.21",
-    "mocha": "^5.2.0",
+    "mocha": "^10.1.0",
     "prettier": "^2.7.1",
     "promise-synchronizer": "^1.1.8",
     "yargs": "^17.6.0"

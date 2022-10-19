@@ -19,3 +19,4 @@ repos:
         files: \.(j|t)s$
         entry: bash -c 'yarn format && yarn lint'
         pass_filenames: false
+exclude: '^example|^fonts'
