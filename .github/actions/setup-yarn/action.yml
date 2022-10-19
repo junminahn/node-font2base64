@@ -1,0 +1,17 @@
+name: "Setup NPM Packages"
+description: "Setup required nodejs packages in the workspace"
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/cache@v2
+      with:
+        path: |
+          **/node_modules
+        key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+    - name: Install Yarn dependencies
+      run: |
+        yarn
+        yarn bootstrap
+      shell: bash

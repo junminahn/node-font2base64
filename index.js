@@ -1,10 +1,8 @@
 /*!
  * node-font2base64
- * Copyright(c) 2020 Junmin Ahn
+ * Copyright(c) 2022 Junmin Ahn
  * MIT Licensed
  */
-
-'use strict';
 
 const fs = require('fs');
 const path = require('path');
@@ -65,16 +63,16 @@ const fontMap = {
 const _fontTypes = Object.keys(fontMap);
 const _styleTypes = ['.css', '.scss', '.less'];
 
-const _buffToBase64 = buff => buff.toString('base64');
+const _buffToBase64 = (buff) => buff.toString('base64');
 
-const _readBuffer = async buff => {
+const _readBuffer = async (buff) => {
   const base64 = _buffToBase64(buff);
   const data = await FileType.fromBuffer(buff);
   data.base64 = base64;
   return data;
 };
 
-const _readBufferSync = buff => {
+const _readBufferSync = (buff) => {
   const base64 = _buffToBase64(buff);
   let data;
   if (sync) {
@@ -128,51 +126,51 @@ const toDataSrc = (fpath, { ext, mime, base64 }) => {
   return _toDataSrc(dataUrl, format);
 };
 
-const _encodeToDataUrl = async fpath => {
+const _encodeToDataUrl = async (fpath) => {
   const buff = await readFileAsync(fpath);
   const data = await _readBuffer(buff);
   return toDataUrl(fpath, data);
 };
 
-const _encodeToDataUrlSync = fpath => {
+const _encodeToDataUrlSync = (fpath) => {
   const buff = fs.readFileSync(fpath);
   const data = _readBufferSync(buff);
   return toDataUrl(fpath, data);
 };
 
-const _encodeToDataSrc = async fpath => {
+const _encodeToDataSrc = async (fpath) => {
   const buff = await readFileAsync(fpath);
   const data = await _readBuffer(buff);
   return toDataSrc(fpath, data);
 };
 
-const _encodeToDataSrcSync = fpath => {
+const _encodeToDataSrcSync = (fpath) => {
   const buff = fs.readFileSync(fpath);
   const data = _readBufferSync(buff);
   return toDataSrc(fpath, data);
 };
 
-const encodeToDataUrl = async fpath => {
+const encodeToDataUrl = async (fpath) => {
   if (isArray(fpath)) return Promise.all(fpath.map(_encodeToDataUrl));
   return _encodeToDataUrl(fpath);
 };
 
-const encodeToDataUrlSync = fpath => {
+const encodeToDataUrlSync = (fpath) => {
   if (isArray(fpath)) return fpath.map(_encodeToDataUrlSync);
   return _encodeToDataUrlSync(fpath);
 };
 
-const encodeToDataSrc = fpath => {
+const encodeToDataSrc = (fpath) => {
   if (isArray(fpath)) return Promise.all(fpath.map(_encodeToDataSrcSync));
   return _encodeToDataSrc(fpath);
 };
 
-const encodeToDataSrcSync = fpath => {
+const encodeToDataSrcSync = (fpath) => {
   if (isArray(fpath)) return fpath.map(_encodeToDataSrcSync);
   return _encodeToDataSrcSync(fpath);
 };
 
-const _extractSrcUrl = value => {
+const _extractSrcUrl = (value) => {
   const rx = /url\('?(.+?)(\??#.+?)?'?\)/g;
   const arr = rx.exec(value);
   if (!arr) return value;
@@ -185,13 +183,13 @@ const _updateCssAst = (content, validator, dataUrlMap, fullpathMatch, cssRoot) =
 
   let modified = false;
 
-  each(ast.stylesheet.rules, rule => {
+  each(ast.stylesheet.rules, (rule) => {
     if (rule.type === 'font-face') {
-      each(rule.declarations, dec => {
+      each(rule.declarations, (dec) => {
         if (dec.property === 'src') {
           const urls = dec.value.split(',');
 
-          const nUrls = urls.map(url => {
+          const nUrls = urls.map((url) => {
             let nUrl = url;
 
             const urlpath = _extractSrcUrl(url);
@@ -201,7 +199,7 @@ const _updateCssAst = (content, validator, dataUrlMap, fullpathMatch, cssRoot) =
 
             const tpathToCompare = (fullmatch && path.resolve(cssRoot, urlpath)) || path.basename(urlpath);
 
-            each(keys, key => {
+            each(keys, (key) => {
               const kpathToCompare = (fullmatch && path.resolve(key)) || path.basename(key);
 
               if (validator(tpathToCompare, kpathToCompare, urlpath, key)) {
@@ -209,7 +207,10 @@ const _updateCssAst = (content, validator, dataUrlMap, fullpathMatch, cssRoot) =
                 modified = true;
                 return false;
               }
+
+              return true;
             });
+
             return nUrl;
           });
           dec.value = nUrls.join(',\n');
@@ -236,7 +237,7 @@ const _generateDataUrlMap = async (fpath, fontTypes) => {
   const dataUrlMap = {};
 
   try {
-    await promiseMap(await readAllFilesAsync(fpath, fontTypes), async fp => {
+    await promiseMap(await readAllFilesAsync(fpath, fontTypes), async (fp) => {
       dataUrlMap[fp] = await _encodeToDataSrc(fp);
     });
   } catch (e) {
@@ -249,7 +250,7 @@ const _generateDataUrlMap = async (fpath, fontTypes) => {
 const _generateDataUrlMapSync = (fpath, fontTypes) => {
   const dataUrlMap = {};
 
-  eachArray(readAllFilesSync(fpath, fontTypes), fp => {
+  eachArray(readAllFilesSync(fpath, fontTypes), (fp) => {
     dataUrlMap[fp] = _encodeToDataSrcSync(fp);
   });
 
@@ -265,13 +266,13 @@ const injectBase64 = async (
     cssTypes = _styleTypes,
     resave = true,
     fullpathMatch = false,
-  } = {}
+  } = {},
 ) => {
   const dataUrlMap = await _generateDataUrlMap(fpath, fontTypes);
   const results = [];
 
   try {
-    await promiseMap(await readAllFilesAsync(cpath, cssTypes), async cp => {
+    await promiseMap(await readAllFilesAsync(cpath, cssTypes), async (cp) => {
       const content = await readFileAsync(cp, 'utf8');
 
       const result = _updateCssAst(content, validator, dataUrlMap, fullpathMatch, path.parse(cp).dir);
@@ -299,13 +300,13 @@ const injectBase64Sync = (
     cssTypes = _styleTypes,
     resave = true,
     fullpathMatch = false,
-  } = {}
+  } = {},
 ) => {
   const dataUrlMap = _generateDataUrlMapSync(fpath, fontTypes);
   const results = [];
 
   try {
-    eachArray(readAllFilesSync(cpath, cssTypes), cp => {
+    eachArray(readAllFilesSync(cpath, cssTypes), (cp) => {
       const content = fs.readFileSync(cp, 'utf8');
 
       const result = _updateCssAst(content, validator, dataUrlMap, fullpathMatch, path.parse(cp).dir);
@@ -327,7 +328,7 @@ const injectBase64Sync = (
 injectBase64.fromContent = async (
   fpath,
   content,
-  { validator = _defaultValidator, fontTypes = _fontTypes, fullpathMatch = false, root } = {}
+  { validator = _defaultValidator, fontTypes = _fontTypes, fullpathMatch = false, root } = {},
 ) => {
   const dataUrlMap = await _generateDataUrlMap(fpath, fontTypes);
   return _updateCssAst(content, validator, dataUrlMap, fullpathMatch, root);
@@ -336,7 +337,7 @@ injectBase64.fromContent = async (
 injectBase64Sync.fromContent = (
   fpath,
   content,
-  { validator = _defaultValidator, fontTypes = _fontTypes, fullpathMatch = false, root } = {}
+  { validator = _defaultValidator, fontTypes = _fontTypes, fullpathMatch = false, root } = {},
 ) => {
   const dataUrlMap = _generateDataUrlMapSync(fpath, fontTypes);
   return _updateCssAst(content, validator, dataUrlMap, fullpathMatch, root);

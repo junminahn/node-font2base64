@@ -1,0 +1,28 @@
+name: "Setup Tools"
+description: "Setup required tools in the workspace"
+
+runs:
+  using: composite
+  steps:
+    - name: Install asdf
+      uses: asdf-vm/actions/setup@v1
+
+    - name: Cache tools
+      uses: actions/cache@v2
+      with:
+        path: /home/runner/.asdf
+        key: ${{ runner.os }}-${{ hashFiles('**/.tool-versions') }}
+
+    - name: Install required tools
+      run: |
+        cat .tool-versions | cut -f 1 -d ' ' | xargs -n 1 asdf plugin-add || true
+        asdf plugin-update --all
+        asdf install
+        asdf reshim
+      shell: bash
+
+    - name: Install python tools
+      run: |
+        pip install -r requirements.txt
+        asdf reshim
+      shell: bash

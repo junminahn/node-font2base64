@@ -1,0 +1,31 @@
+name: Publish NPM Packages
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+
+    steps:
+      - uses: hmarr/debug-action@v2
+      - uses: actions/checkout@v3
+
+      - name: Setup Tools
+        uses: ./.github/actions/setup-tools
+
+      - name: Setup NPM Packages
+        uses: ./.github/actions/setup-yarn
+
+      - name: Publish Package
+        run: |
+          cat >"/home/runner/.npmrc" <<EOF
+          //registry.npmjs.org/:_authToken=${{secrets.NPM_TOKEN}}
+          registry=https://registry.npmjs.org/
+          always-auth=true
+          EOF
+          node scripts/publish --tag=${{github.ref_name}}

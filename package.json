@@ -1,7 +1,7 @@
 {
   "name": "node-font2base64",
   "description": "Convert font to base64 url or src, and to inject src into style files",
-  "version": "0.8.0",
+  "version": "0.0.0-PLACEHOLDER",
   "author": "Junmin Ahn",
   "license": "MIT",
   "keywords": [
@@ -18,6 +18,8 @@
     "url": "git://github.com/junminahn/node-font2base64.git"
   },
   "scripts": {
+    "format": "git ls-files '*.js' | xargs prettier --write",
+    "lint": "git ls-files '[!test]*.js' | xargs yarn eslint",
     "test": "mocha --exit test.js"
   },
   "files": [
@@ -34,8 +36,18 @@
     "file-type": "^16.5.4"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
+    "eslint": "^8.25.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "fs-extra": "^10.1.0",
+    "lodash": "^4.17.21",
     "mocha": "^5.2.0",
-    "promise-synchronizer": "^1.1.8"
+    "prettier": "^2.7.1",
+    "promise-synchronizer": "^1.1.8",
+    "yargs": "^17.6.0"
   },
   "peerDependencies": {
     "promise-synchronizer": "^1.1.8"

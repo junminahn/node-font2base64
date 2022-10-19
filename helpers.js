@@ -1,19 +1,17 @@
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 
-const isString = value => typeof value === 'string';
+const isString = (value) => typeof value === 'string';
 
-const isFunction = value => typeof value === 'function';
+const isFunction = (value) => typeof value === 'function';
 
-const isPlainObject = obj => Object.prototype.toString.call(obj) === '[object Object]';
+const isPlainObject = (obj) => Object.prototype.toString.call(obj) === '[object Object]';
 
 const isArray = Array.isArray;
 
-const isNil = value => value === undefined || value === null;
+const isNil = (value) => value === undefined || value === null;
 
-const castArray = value => {
+const castArray = (value) => {
   if (isNil(value)) return [];
   return isArray(value) ? value : [value];
 };
@@ -33,7 +31,7 @@ const eachArray = (array, fn, startOffset = 0, endOffset = 0) => {
 };
 
 const eachAsync = async (array, fn, startOffset = 0, endOffset = 0) => {
-  for (let x = startOffset; x < value.length - endOffset; x++) {
+  for (let x = startOffset; x < array.length - endOffset; x++) {
     const ret = await fn(array[x], x, array);
     if (ret === false) break;
   }
@@ -43,22 +41,21 @@ const promiseMap = (array, asyncFn) => {
   array = castArray(array);
 
   const promises = [];
-  for (var i = 0; i < array.length; ++i) {
+  for (let i = 0; i < array.length; ++i) {
     promises.push(asyncFn(array[i]));
   }
   return Promise.all(promises);
 };
 
-const promisify = fn => {
-  return (...args) => {
-    return new Promise((resolve, reject) => {
+const promisify =
+  (fn) =>
+  (...args) =>
+    new Promise((resolve, reject) => {
       fn(...args, (err, data) => {
         if (err) return reject(err);
         return resolve(data);
       });
     });
-  };
-};
 
 const readFileAsync = promisify(fs.readFile);
 
@@ -70,12 +67,12 @@ const readdirAsync = promisify(fs.readdir);
 
 const readAllFilesAsync = async (fileOrPath, allowedExts) => {
   const files = [];
-  await promiseMap(fileOrPath, async fp => {
+  await promiseMap(fileOrPath, async (fp) => {
     try {
       const stat = await statAsync(fp);
       if (stat.isDirectory()) {
         const subs = await readdirAsync(fp);
-        const subPaths = subs.map(s => path.join(fp, s));
+        const subPaths = subs.map((s) => path.join(fp, s));
         const subFiles = await readAllFilesAsync(subPaths, allowedExts);
         files.push(...subFiles);
       } else {
@@ -89,12 +86,12 @@ const readAllFilesAsync = async (fileOrPath, allowedExts) => {
 
 const readAllFilesSync = (fileOrPath, allowedExts) => {
   const files = [];
-  eachArray(fileOrPath, fp => {
+  eachArray(fileOrPath, (fp) => {
     try {
       const stat = fs.statSync(fp);
       if (stat.isDirectory()) {
         const subs = fs.readdirSync(fp);
-        const subPaths = subs.map(s => path.join(fp, s));
+        const subPaths = subs.map((s) => path.join(fp, s));
         const subFiles = readAllFilesSync(subPaths, allowedExts);
         files.push(...subFiles);
       } else {

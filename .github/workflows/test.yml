@@ -1,0 +1,37 @@
+name: Test
+on:
+  push
+
+jobs:
+  tests-pre-commit:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: hmarr/debug-action@v2
+      - uses: actions/checkout@v3
+
+      - name: Setup Tools
+        uses: ./.github/actions/setup-tools
+
+      - name: Setup NPM Packages
+        uses: ./.github/actions/setup-yarn
+
+      - name: Run unit tests
+        run: yarn test
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - name: Rerun Pre-Commit Hooks on CI
+        run: |
+          pip install -r requirements.txt
+          pre-commit run --all-files
+
+  commitlint:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v2
