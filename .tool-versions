@@ -1,5 +1,5 @@
-nodejs 16.14.0
-yarn 1.22.17
-python 3.8.6
+nodejs 16.19.0
+yarn 1.22.19
+python 3.11.0
 git-chglog 0.15.1
 semtag 0.1.1

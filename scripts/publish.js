@@ -11,7 +11,7 @@ if (tag.startsWith('v')) tag = tag.substring(1);
 console.log(`target tag ${tag}`);
 
 const VER_PLACEHOLDER = '0.0.0-PLACEHOLDER';
-const PUBLISH_DIR = 'publish';
+const PUBLISH_DIR = 'lib';
 
 const parseJson = (dir) => {
   const content = fse.readFileSync(dir).toString('utf-8');
@@ -26,7 +26,7 @@ const getAbsPath = (filename) => {
   return path.resolve(__dirname, '../', filename);
 };
 
-execSync(`mkdir -p ${getAbsPath(PUBLISH_DIR)}`);
+execSync(`yarn build`);
 const currpj = parseJson(getAbsPath('package.json'));
 if (currpj['version'] === VER_PLACEHOLDER) currpj['version'] = tag;
 
@@ -45,9 +45,13 @@ const newpj = _.pick(currpj, [
   'peerDependencies',
   'publishConfig',
   'release',
+  'main',
+  'module',
+  'types',
+  'exports',
 ]);
 
-['index.js', 'helpers.js', 'LICENSE', 'README.md'].forEach((file) => {
+['LICENSE', 'README.md'].forEach((file) => {
   execSync(`cp ${getAbsPath(file)} ${getAbsPath(`${PUBLISH_DIR}/${file}`)}`);
 });
 
