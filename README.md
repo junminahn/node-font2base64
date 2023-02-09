@@ -10,55 +10,86 @@ Convert font to base64 url or src, and to inject src into style files
 
 ```sh
 $ npm install node-font2base64
+# or
+$ yarn add node-font2base64 --dev
+```
+
+## Import
+
+### CommonJS modules
+
+```js
+const font2base64 = require('node-font2base64');
+const {
+  encodeToDataUrl,
+  encodeToDataSrc,
+  encodeToDataUrlSync,
+  encodeToDataSrcSync,
+  injectBase64,
+  injectBase64Sync,
+} = require('node-font2base64');
+```
+
+### ECMAScript modules
+
+```js
+import {
+  encodeToDataUrl,
+  encodeToDataSrc,
+  encodeToDataUrlSync,
+  encodeToDataSrcSync,
+  injectBase64,
+  injectBase64Sync,
+} from 'node-font2base64';
 ```
 
 ## API
 
-### .encodeToDataUrl (fontpath)
+### encodeToDataUrl (fontpath)
 
 - Convert font file(s) to font-media base64 data url asynchronously
 - `fontpath`: {string} | {Array{string}}
 - Returns: {Promise} containing {string} | {Array{string}}
 
 ```js
-const dataUrl = await font2base64.encodeToDataUrl('fonts/myfont-regular.ttf');
+const dataUrl = await encodeToDataUrl('fonts/myfont-regular.ttf');
 // => data:font/truetype;charset=utf-8;base64,<base64>
 ```
 
-### .encodeToDataUrlSync (fontpath)
+### encodeToDataUrlSync (fontpath)
 
 - Convert font file(s) to font-media base64 data url synchronously
 - `fontpath`: {string} | {Array{string}}
 - Returns: {string} | {Array{string}}
 
 ```js
-const dataUrl = font2base64.encodeToDataUrlSync('fonts/myfont-regular.woff');
+const dataUrl = encodeToDataUrlSync('fonts/myfont-regular.woff');
 // => data:application/font-woff;charset=utf-8;base64,<base64>
 ```
 
-### .encodeToDataSrc (fontpath)
+### encodeToDataSrc (fontpath)
 
 - Convert font file(s) to font-media base64 data src asynchronously
 - `fontpath`: {string} | {Array{string}}
 - Returns: {Promise} containing {string} | {Array{string}}
 
 ```js
-const dataSrc = await font2base64.encodeToDataSrc('fonts/myfont-regular.ttf');
+const dataSrc = await encodeToDataSrc('fonts/myfont-regular.ttf');
 // => url(data:font/truetype;charset=utf-8;base64,<base64>) format('truetype')
 ```
 
-### .encodeToDataSrcSync (fontpath)
+### encodeToDataSrcSync (fontpath)
 
 - Convert font file(s) to font-media base64 data src synchronously
 - `fontpath`: {string} | {Array{string}}
 - Returns: {string} | {Array{string}}
 
 ```js
-const dataSrc = font2base64.encodeToDataSrcSync('fonts/myfont-regular.woff');
+const dataSrc = encodeToDataSrcSync('fonts/myfont-regular.woff');
 // => url(data:application/font-woff;charset=utf-8;base64,<base64>) format('woff')
 ```
 
-### .injectBase64 (fontpath, stylepath[, options])
+### injectBase64 (fontpath, stylepath[, options])
 
 - Replace font url(s) in style file(s) with font-media base64 data src asynchronously
 - `fontpath`: {string} | {Array{string}}
@@ -82,14 +113,14 @@ const dataSrc = font2base64.encodeToDataSrcSync('fonts/myfont-regular.woff');
 - Returns: {Promise} containing {true | Error} | {Array{result} | Error}
 
 ```js
-const result = await font2base64.injectBase64('./fonts', './styles');
+const result = await injectBase64('./fonts', './styles');
 // => true
 
-const result = await font2base64.injectBase64('./fonts', './styles', { resave: false });
+const result = await injectBase64('./fonts', './styles', { resave: false });
 // => [{ modified: true, filepath: './styles/example.css', content: '...' }]
 ```
 
-### .injectBase64Sync (fontpath, stylepath[, options])
+### injectBase64Sync (fontpath, stylepath[, options])
 
 - Replace font url(s) in style file(s) with font-media base64 data src synchronously
 - `fontpath`: {string} | {Array{string}}
@@ -113,14 +144,14 @@ const result = await font2base64.injectBase64('./fonts', './styles', { resave: f
 - Returns: {true | Error} | {Array{result} | Error}
 
 ```js
-const result = font2base64.injectBase64Sync('./fonts', './styles');
+const result = injectBase64Sync('./fonts', './styles');
 // => true
 
-const result = font2base64.injectBase64Sync('./fonts', './styles', { resave: false });
+const result = injectBase64Sync('./fonts', './styles', { resave: false });
 // => [{ modified: true, filepath: './styles/example.css', content: '...' }]
 ```
 
-### .injectBase64.fromContent (fontpath, content[, options])
+### injectBase64.fromContent (fontpath, content[, options])
 
 - Replace font url(s) in style content with font-media base64 data src asynchronously
 - `fontpath`: {string} | {Array{string}}
@@ -141,11 +172,11 @@ const result = font2base64.injectBase64Sync('./fonts', './styles', { resave: fal
 - Returns: {Promise} containing {result | Error}
 
 ```js
-const result = await font2base64.injectBase64.fromContent('./fonts', '...@font-face {...');
+const result = await injectBase64.fromContent('./fonts', '...@font-face {...');
 // => [{ modified: true, content: '...' }]
 ```
 
-### .injectBase64Sync.fromContent (fontpath, content[, options])
+### injectBase64Sync.fromContent (fontpath, content[, options])
 
 - Replace font url(s) in style content with font-media base64 data src synchronously
 - `fontpath`: {string} | {Array{string}}
@@ -166,11 +197,11 @@ const result = await font2base64.injectBase64.fromContent('./fonts', '...@font-f
 - Returns: {result | Error}
 
 ```js
-const result = injectBase64Sync.injectBase64.fromContent('./fonts', '...@font-face {...');
+const result = injectBase64Sync.fromContent('./fonts', '...@font-face {...');
 // => [{ modified: true, content: '...' }]
 ```
 
-### .injectBase64.fromBuffer (fontpath, buffer[, options])
+### injectBase64.fromBuffer (fontpath, buffer[, options])
 
 - Replace font url(s) in style buffer with font-media base64 data src asynchronously
 - `fontpath`: {string} | {Array{string}}
@@ -191,11 +222,11 @@ const result = injectBase64Sync.injectBase64.fromContent('./fonts', '...@font-fa
 - Returns: {Promise} containing {result | Error}
 
 ```js
-const result = await font2base64.injectBase64.fromBuffer('./fonts', Buffer 54 65 73 74...)
+const result = await injectBase64.fromBuffer('./fonts', Buffer 54 65 73 74...)
 // => [{ modified: true, content: '...' }]
 ```
 
-### .injectBase64Sync.fromBuffer (fontpath, content[, options])
+### injectBase64Sync.fromBuffer (fontpath, content[, options])
 
 - Replace font url(s) in style buffer with font-media base64 data src synchronously
 - `fontpath`: {string} | {Array{string}}
@@ -216,7 +247,7 @@ const result = await font2base64.injectBase64.fromBuffer('./fonts', Buffer 54 65
 - Returns: {result | Error}
 
 ```js
-const result = injectBase64Sync.injectBase64.fromBuffer('./fonts', Buffer 54 65 73 74...)
+const result = injectBase64Sync.fromBuffer('./fonts', Buffer 54 65 73 74...)
 // => [{ modified: true, content: '...' }]
 ```
 
