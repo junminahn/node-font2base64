@@ -11,7 +11,7 @@ if (tag.startsWith('v')) tag = tag.substring(1);
 console.log(`target tag ${tag}`);
 
 const VER_PLACEHOLDER = '0.0.0-PLACEHOLDER';
-const PUBLISH_DIR = 'lib';
+const PUBLISH_DIR = 'dist';
 
 const parseJson = (dir) => {
   const content = fse.readFileSync(dir).toString('utf-8');
