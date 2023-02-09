@@ -45,6 +45,7 @@ const newpj = _.pick(currpj, [
   'peerDependencies',
   'publishConfig',
   'release',
+  'engines',
   'main',
   'module',
   'types',

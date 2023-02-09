@@ -39,7 +39,7 @@
     "helpers.js"
   ],
   "engines": {
-    "node": ">= 8.0.0"
+    "node": ">=14"
   },
   "dependencies": {
     "css": "^3.0.0",
