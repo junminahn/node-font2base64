@@ -7,6 +7,6 @@
     "test": "node example.mjs"
   },
   "devDependencies": {
-    "node-font2base64": "^0.8.2-alpha.1"
+    "node-font2base64": "^0.8.2-alpha.3"
   }
 }

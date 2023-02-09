@@ -45,10 +45,10 @@ inherits@^2.0.3, inherits@^2.0.4:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
 
-node-font2base64@^0.8.2-alpha.1:
-  version "0.8.2-alpha.1"
-  resolved "https://registry.yarnpkg.com/node-font2base64/-/node-font2base64-0.8.2-alpha.1.tgz#a5308c94c719b61cc7a86934d787e9270ed1df3b"
-  integrity sha512-s7fT3NFUrnXpIRjxA1n7e9i4PEO25xoNcn8mz/u+ukbpoes32mbaolDeo6GxMldLmKlo8YaH4T/Bs429MblnUw==
+node-font2base64@^0.8.2-alpha.3:
+  version "0.8.2-alpha.3"
+  resolved "https://registry.yarnpkg.com/node-font2base64/-/node-font2base64-0.8.2-alpha.3.tgz#e41b1ca6258bee4dba43406c3c510540a8aeaae7"
+  integrity sha512-QcrP8F+ZVotnh08CdTNwA6jEgYIJ+7TxgxlLScjEFMYEe+a/XjfUjbougCQGu0Qh1C+6HrL/ZVo+m1Y0aQcYvg==
   dependencies:
     css "^3.0.0"
     file-type "^16.5.4"
