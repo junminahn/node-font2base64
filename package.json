@@ -32,12 +32,6 @@
     "test": "mocha --exit",
     "build": "tsup"
   },
-  "files": [
-    "LICENSE",
-    "HISTORY.md",
-    "index.js",
-    "helpers.js"
-  ],
   "engines": {
     "node": ">=14"
   },
