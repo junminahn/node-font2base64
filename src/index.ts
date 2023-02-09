@@ -6,7 +6,9 @@
 
 import fs from 'fs';
 import path from 'path';
-import { fromBuffer as fileTypeFromBuffer, FileTypeResult } from 'file-type';
+import fileType, { FileTypeResult } from 'file-type';
+const { fromBuffer: fileTypeFromBuffer } = fileType;
+
 import css, { Rule, Declaration } from 'css';
 import {
   isArray,

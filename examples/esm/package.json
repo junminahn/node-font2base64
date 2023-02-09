@@ -1,0 +1,12 @@
+{
+  "name": "esm",
+  "version": "0.0.0-PLACEHOLDER",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "test": "node example.mjs"
+  },
+  "devDependencies": {
+    "node-font2base64": "^0.8.2-alpha.1"
+  }
+}

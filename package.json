@@ -4,14 +4,14 @@
   "version": "0.0.0-PLACEHOLDER",
   "author": "Junmin Ahn",
   "license": "MIT",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
-  "types": "./esm/index.d.ts",
+  "main": "./index.js",
+  "module": "./index.mjs",
+  "types": "./index.d.ts",
   "exports": {
     ".": {
-      "require": "./cjs/index.js",
-      "import": "./esm/index.js",
-      "types": "./esm/index.d.ts"
+      "require": "./index.js",
+      "import": "./index.mjs",
+      "types": "./index.d.ts"
     }
   },
   "keywords": [
@@ -30,9 +30,7 @@
     "format": "git ls-files '*.js' '*.ts' | xargs prettier --write",
     "lint": "git ls-files '[!test]*.js' '[!test]*.ts' | xargs yarn eslint",
     "test": "mocha --exit",
-    "build-cjs": "rimraf lib/cjs && tsc -p tsconfig.cjs.json -d",
-    "build-esm": "rimraf lib/esm && tsc -p tsconfig.esm.json -d",
-    "build": "yarn build-cjs && yarn build-esm"
+    "build": "tsup"
   },
   "files": [
     "LICENSE",
@@ -64,14 +62,30 @@
     "mocha": "^10.2.0",
     "prettier": "^2.8.4",
     "promise-synchronizer": "^3.0.0",
-    "rimraf": "^4.1.2",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.2",
+    "tsup": "^6.6.0",
     "typescript": "^4.9.5",
     "yargs": "^17.6.0"
   },
   "peerDependencies": {
     "promise-synchronizer": "^3.0.0"
+  },
+  "tsup": {
+    "target": "node14",
+    "entry": [
+      "src/index.ts"
+    ],
+    "format": [
+      "cjs",
+      "esm",
+      "iife"
+    ],
+    "dts": true,
+    "splitting": false,
+    "sourcemap": true,
+    "clean": true,
+    "minify": false
   },
   "mocha": {
     "extensions": [
