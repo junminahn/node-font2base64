@@ -4,7 +4,7 @@ description: "Setup required nodejs packages in the workspace"
 runs:
   using: composite
   steps:
-    - uses: actions/cache@v2
+    - uses: actions/cache@v3
       with:
         path: |
           **/node_modules
