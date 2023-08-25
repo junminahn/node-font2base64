@@ -58,7 +58,7 @@
     "promise-synchronizer": "^3.0.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.2",
-    "tsup": "^6.6.0",
+    "tsup": "^7.0.0",
     "typescript": "^5.0.0",
     "yargs": "^17.6.0"
   },
