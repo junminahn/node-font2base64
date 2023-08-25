@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "css": "^3.0.0",
-    "file-type": "^16.5.4"
+    "file-type": "^18.0.0"
   },
   "devDependencies": {
     "@types/chai": "^4.3.4",
