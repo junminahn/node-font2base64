@@ -281,10 +281,10 @@
   resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.3.6.tgz#7b489e8baf393d5dd1266fb203ddd4ea941259e6"
   integrity sha512-VOVRLM1mBxIRxydiViqPcKn6MIxZytrbMpd6RJLIWKxUNr3zux8no0Oc7kJx0WAPIitgZ0gkrDS+btlqQpubpw==
 
-"@types/css@^0.0.34":
-  version "0.0.34"
-  resolved "https://registry.yarnpkg.com/@types/css/-/css-0.0.34.tgz#73c912334a9a5b67f57d44a3020c7b030bd37460"
-  integrity sha512-nyZiWXt6gBG7Jj7BYB4zdHXyrhcAjJH8qv+BUsO8FMJR5be7H5ETOaibB3uvXeX5lc57LWkecNJv03q0+JpbXA==
+"@types/css@^0.0.38":
+  version "0.0.38"
+  resolved "https://registry.yarnpkg.com/@types/css/-/css-0.0.38.tgz#fe7291e420488528305e68b1a6fc0486ba5e8a75"
+  integrity sha512-FsAy4pBnrJb8qdKmIyDy582o4Xt8pHwpCwYRmIvXw4dslA7C4436oOM+8XNnMEsV/LSculbFNaZsBZmycDjARw==
 
 "@types/json-schema@^7.0.12":
   version "7.0.13"
